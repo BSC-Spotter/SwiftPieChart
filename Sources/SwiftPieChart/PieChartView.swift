@@ -94,6 +94,7 @@ public struct PieChartView: View {
                     }
                     
                 }
+                PieChartRows(colors: self.colors, names: self.names, values: self.values.map { self.formatter($0) }, percents: self.values.map { String(format: "%.0f%%", $0 * 100 / self.values.reduce(0, +)) })
             }
             .background(self.backgroundColor)
             .foregroundColor(Color.white)
@@ -111,7 +112,7 @@ struct PieChartRows: View {
     var body: some View {
         VStack{
             ForEach(0..<self.values.count){ i in
-                HStack {
+                HStack {/*
                     RoundedRectangle(cornerRadius: 5.0)
                         .fill(self.colors[i])
                         .frame(width: 20, height: 20)
@@ -121,7 +122,7 @@ struct PieChartRows: View {
                         Text(self.values[i])
                         Text(self.percents[i])
                             .foregroundColor(Color.gray)
-                    }
+                    }*/
                 }
             }
         }
@@ -134,4 +135,3 @@ struct PieChartView_Previews: PreviewProvider {
         PieChartView(values: [1300, 500, 300], names: ["Rent", "Transport", "Education"], formatter: {value in String(format: "$%.2f", value)})
     }
 }
-
