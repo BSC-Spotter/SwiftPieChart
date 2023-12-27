@@ -46,78 +46,77 @@ public struct PieChartView: View {
     }
     
     public var body: some View {
-    GeometryReader { geometry in
-    VStack {
-        ZStack {
-            ForEach(0..<self.values.count) { i in
-                PieSlice(pieSliceData: self.slices[i])
-                    .scaleEffect(self.activeIndex == i ? 1.03 : 1)
-                    .animation(Animation.spring())
-            }
-            .frame(width: widthFraction * geometry.size.width, height: widthFraction * geometry.size.width)
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { value in
-                        // ... (your existing code for gesture handling)
-                    }
-                    .onEnded { value in
-                        // ... (your existing code for gesture handling)
-                    }
-            )
-            Circle()
-                .fill(self.backgroundColor)
-                .frame(width: widthFraction * geometry.size.width * innerRadiusFraction, height: widthFraction * geometry.size.width * innerRadiusFraction)
-                .alignmentGuide(.center) { dimensions in
-                    CGPoint(x: dimensions[.midX], y: dimensions[.midY])
-                }
-
+        GeometryReader { geometry in
             VStack {
-                Text(self.activeIndex == -1 ? "Total" : names[self.activeIndex])
-                    .font(.title)
-                    .foregroundColor(Color.gray)
-                Text(self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex]))
-                    .font(.title)
-            }
-        }
-    }
-    .background(self.backgroundColor)
-    .foregroundColor(Color.white)
-}
-
-}
-
-@available(OSX 10.15, *)
-struct PieChartRows: View {
-    var colors: [Color]
-    var names: [String]
-    var values: [String]
-    var percents: [String]
-    
-    var body: some View {
-        VStack{
-            ForEach(0..<self.values.count){ i in
-                HStack {
-                    RoundedRectangle(cornerRadius: 5.0)
-                        .fill(self.colors[i])
-                        .frame(width: 20, height: 20)
-                    Text(self.names[i])
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Text(self.values[i])
-                        Text(self.percents[i])
+                ZStack {
+                    ForEach(0..<self.values.count) { i in
+                        PieSlice(pieSliceData: self.slices[i])
+                            .scaleEffect(self.activeIndex == i ? 1.03 : 1)
+                            .animation(Animation.spring())
+                    }
+                    .frame(width: widthFraction * geometry.size.width, height: widthFraction * geometry.size.width)
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { value in
+                                // ... (your existing code for gesture handling)
+                            }
+                            .onEnded { value in
+                                // ... (your existing code for gesture handling)
+                            }
+                    )
+                    Circle()
+                        .fill(self.backgroundColor)
+                        .frame(width: widthFraction * geometry.size.width * innerRadiusFraction, height: widthFraction * geometry.size.width * innerRadiusFraction)
+                        .alignmentGuide(.center) { dimensions in
+                            CGPoint(x: dimensions[.midX], y: dimensions[.midY])
+                        }
+                    
+                    VStack {
+                        Text(self.activeIndex == -1 ? "Total" : names[self.activeIndex])
+                            .font(.title)
                             .foregroundColor(Color.gray)
+                        Text(self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex]))
+                            .font(.title)
+                    }
+                }
+            }
+            .background(self.backgroundColor)
+            .foregroundColor(Color.white)
+        }
+        
+    }
+    
+    @available(OSX 10.15, *)
+    struct PieChartRows: View {
+        var colors: [Color]
+        var names: [String]
+        var values: [String]
+        var percents: [String]
+        
+        var body: some View {
+            VStack{
+                ForEach(0..<self.values.count){ i in
+                    HStack {
+                        RoundedRectangle(cornerRadius: 5.0)
+                            .fill(self.colors[i])
+                            .frame(width: 20, height: 20)
+                        Text(self.names[i])
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            Text(self.values[i])
+                            Text(self.percents[i])
+                                .foregroundColor(Color.gray)
+                        }
                     }
                 }
             }
         }
     }
-}
-
-@available(OSX 10.15.0, *)
-struct PieChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        PieChartView(values: [1300, 500, 300], names: ["Rent", "Transport", "Education"], formatter: {value in String(format: "$%.2f", value)})
+    
+    @available(OSX 10.15.0, *)
+    struct PieChartView_Previews: PreviewProvider {
+        static var previews: some View {
+            PieChartView(values: [1300, 500, 300], names: ["Rent", "Transport", "Education"], formatter: {value in String(format: "$%.2f", value)})
+        }
     }
 }
-
-
