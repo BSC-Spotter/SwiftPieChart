@@ -94,7 +94,6 @@ public struct PieChartView: View {
                     }
                     
                 }
-                PieChartRows(colors: self.colors, names: self.names, values: self.values.map { self.formatter($0) }, percents: self.values.map { String(format: "%.0f%%", $0 * 100 / self.values.reduce(0, +)) })
             }
             .background(self.backgroundColor)
             .foregroundColor(Color.white)
