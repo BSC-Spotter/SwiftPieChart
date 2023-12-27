@@ -112,7 +112,7 @@ struct PieChartRows: View {
     var body: some View {
         VStack{
             ForEach(0..<self.values.count){ i in
-                HStack {/*
+                HStack {
                     RoundedRectangle(cornerRadius: 5.0)
                         .fill(self.colors[i])
                         .frame(width: 20, height: 20)
@@ -123,9 +123,9 @@ struct PieChartRows: View {
                         Text(self.percents[i])
                             .foregroundColor(Color.gray)
                     }
-                */}
+                }
             }
-        }
+        }.opacity(0.0)
     }
 }
 
