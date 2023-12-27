@@ -121,9 +121,9 @@ struct PieChartRows: View {
                     VStack(alignment: .trailing) {
                         Text(self.values[i])
                         Text(self.percents[i])
-                            .foregroundColor(Color.gray)*/
+                            .foregroundColor(Color.gray)
                     }
-                }
+                */}
             }
         }
     }
